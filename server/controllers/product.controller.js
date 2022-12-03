@@ -1,6 +1,6 @@
 // == CRUD ==
 //import the model to make queries to the DB
-const Product = require('../models/model.product')
+const Product = require('../models/product.model')
 
 // different methods
 
@@ -14,15 +14,24 @@ module.exports = {
             })
             .catch(err => res.json(err))
         },
-    
+    //Find By Categories
+    findByCategories: (req, res) => {
+        Product.find({categories:req.params.cat})
+        .then(allProducts => {
+            res.json(allProducts)
+        })
+        .catch(err => res.json(err))
+    },
     // CREATE
     create: ( req, res ) =>{
+        console.log(req.body)
         Product.create(req.body)
             .then( newProduct => {
                 res.json(newProduct)
             })
             .catch(err => res.json(err))
     },
+
 
     //READ ONE
     findOne: ( req, res ) =>{
@@ -31,6 +40,18 @@ module.exports = {
             .then(oneProduct => res.json(oneProduct))
             .catch(err => res.json(err))
     },
+
+    //Find By Categories
+    findByCategories: (req, res) => {
+        console.log(req.params.cat)
+        Product.find({ categories: req.params.cat })
+            .then(allProducts => {
+                console.log("******")
+                res.json(allProducts)
+            })
+            .catch(err => res.json(err))
+    },
+
 
     //UPDATE
     update: (req, res) => {
